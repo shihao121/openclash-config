@@ -588,4 +588,4 @@ DOMAIN-SUFFIX,zhuihd.com
 
 # Self-domain
 DOMAIN-SUFFIX,521890online.click
-IP,107.172.16.246,no-resolve
+IP-CIDR,107.172.16.246/32,no-resolve
