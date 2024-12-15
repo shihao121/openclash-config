@@ -585,6 +585,3 @@ DOMAIN-SUFFIX,zhimg.com
 DOMAIN-SUFFIX,zhipin.com
 DOMAIN-SUFFIX,zhongsou.com
 DOMAIN-SUFFIX,zhuihd.com
-
-# Self-domain
-IP-CIDR,107.172.16.246/32,no-resolve
