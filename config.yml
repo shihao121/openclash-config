@@ -58,9 +58,7 @@ pr: &pr {type: select, proxies: [🚀 节点选择, 🔯 香港故转, 🔯 日�
 proxy-groups:
   - {name: 🚀 节点选择, type: select, proxies: [🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 🟢 直连]}
   - {name: NDEMBY, <<: *pr}
-  - {name: NDPROXY, <<: *pr}
   - {name: TERMINUS, <<: *pr}
-  - {name: ACA, <<: *pr}
   - {name: OTHER_EMBY, <<: *pr}
   - {name: 📹 YouTube, <<: *pr}
   - {name: 🍀 Google, <<: *pr}
@@ -94,9 +92,7 @@ rules:
   - RULE-SET,private_domain,🟢 直连
   - RULE-SET,direct1,🟢 直连
   - RULE-SET,nice_duck,NDEMBY
-  - RULE-SET,nice_duck_proxy,NDPROXY
   - RULE-SET,terminus_emby,TERMINUS
-  - RULE-SET,aca_misakaf,ACA
   - RULE-SET,other_emby,OTHER_EMBY
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,proxylite,🚀 节点选择
@@ -127,9 +123,7 @@ rule-providers:
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs" }
   direct1: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/Direct.list" }
   nice_duck: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/niceduck.list" }
-  nice_duck_proxy: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/niceduck-proxy.list" }
   terminus_emby: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/terminus-emby.list" }
-  aca_misakaf: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/emby.list" }
   other_emby: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/other-emby.list" }
   proxylite: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/ProxyLite.list" }
   ai: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/AI.list" }
