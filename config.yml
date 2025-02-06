@@ -19,7 +19,7 @@ proxy-providers:
     proxy: 🟢 直连
     url: "http://192.168.0.88:3001/2cXaAxRGfddmGz2yx1wA/download/collection/self-mix/"
 
-  yifen:
+  shouhou:
     type: http
     interval: 1800
     health-check:
@@ -27,7 +27,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "http://192.168.0.88:3001/2cXaAxRGfddmGz2yx1wA/download/yifen-jichang/"
+    url: "http://192.168.0.88:3001/2cXaAxRGfddmGz2yx1wA/download/shouhou-jichang"
 
 unified-delay: true
 tcp-concurrent: true
@@ -53,14 +53,15 @@ proxies:
   type: direct
   udp: true
 
-pr: &pr {type: select, proxies: [🚀 节点选择, 🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 自建节点, 低倍率自动, Emby节点, 一分节点, 🟢 直连]}
+pr: &pr {type: select, proxies: [🚀 节点选择, ♻️ 香港自动, ♻️ 美国自动, ♻️ 狮城自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇺🇲 美国节点, 🇺🇲 狮城节点, 守候节点, 🌐 全部节点, 🟢 直连]}
+streamselect: &streamselect {type: select, proxies: [♻️ 香港自动, ♻️ 美国自动, ♻️ 狮城自动, 自建节点, Emby节点, 守候低倍率, 低倍率自动, 🌐 全部节点, 🟢 直连]}
 
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, proxies: [🔯 香港故转, 🔯 日本故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 🟢 直连]}
-  - {name: NDEMBY, <<: *pr}
-  - {name: TERMINUS, <<: *pr}
-  - {name: OTHER_EMBY, <<: *pr}
-  - {name: 📹 YouTube, <<: *pr}
+  - {name: 🚀 节点选择, type: select, proxies: [♻️ 香港自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇺🇲 美国节点, 守候节点, 🌐 全部节点, 🟢 直连]}
+  - {name: NDEMBY, <<: *streamselect}
+  - {name: TERMINUS, <<: *streamselect}
+  - {name: OTHER_EMBY, <<: *streamselect}
+  - {name: 📹 YouTube, <<: *streamselect}
   - {name: 🍀 Google, <<: *pr}
   - {name: 🤖 ChatGPT, <<: *pr}
   - {name: 👨🏿‍💻 GitHub, <<: *pr}
@@ -75,22 +76,22 @@ proxy-groups:
   - {name: 🎯 全球直连, type: select, proxies: [🟢 直连, 🚀 节点选择]}
   - {name: 🐟 漏网之鱼, <<: *pr}
   - {name: 🇭🇰 香港节点, use: [Airport_01], type: select, include-all: false, filter: "(?i)港|hk|hongkong|hong kong"}
-  - {name: 🇯🇵 日本节点, use: [Airport_01], type: select, include-all: false, filter: "(?i)日|jp|japan"}
   - {name: 🇺🇲 美国节点, use: [Airport_01], type: select, include-all: false, filter: "(?i)美|us|unitedstates|united states"}
-  - {name: 🔯 香港故转, use: [Airport_01], type: fallback, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
-  - {name: 🔯 日本故转, use: [Airport_01], type: fallback, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
+  - {name: 🇺🇲 狮城节点, use: [Airport_01], type: select, include-all: false, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
   - {name: ♻️ 香港自动, use: [Airport_01], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
-  - {name: ♻️ 日本自动, use: [Airport_01], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
-  - {name: 低倍率自动, use: [Airport_01], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(0.1x|0.1|0.5|0.5倍|0.5x))^((?!(Emby|emby|套餐到期)).)*$" }
-  - {name: Emby节点, use: [Airport_01], type: select, include-all: false, filter: "(?=.*(emby|Emby))^((?!(套餐到期)).)*$" }
   - {name: ♻️ 美国自动, use: [Airport_01], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
+  - {name: ♻️ 狮城自动, use: [Airport_01], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|日|韩|美)).)*$"}
+  - {name: 低倍率自动, use: [Airport_01], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(0.1x|0.1|0.5|0.5倍|0.5x))^((?!(Emby|emby|套餐到期)).)*$" }
+  - {name: 守候低倍率, use: [shouhou], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "(?=.*(0.1x|0.1|0.5|0.5倍|0.5x))^((?!(Emby|emby|套餐到期)).)*$" }
+  - {name: Emby节点, use: [Airport_01], type: select, include-all: false, filter: "(?=.*(emby|Emby))^((?!(套餐到期)).)*$" }
   - {name: ♻️ 自动选择, use: [Airport_01], type: url-test, include-all: false, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
   - {name: 自建节点, use: [Self_build], type: select, include-all: false}
-  - {name: 一分节点, use: [yifen], type: select, include-all: false}
+  - {name: 守候节点, use: [shouhou], type: select, include-all: false}
   - {name: 🌐 全部节点, use: [Airport_01], type: select, include-all: false}
 rules:
   - RULE-SET,private_domain,🟢 直连
   - RULE-SET,direct1,🟢 直连
+  - RULE-SET,micu_emby,🟢 直连
   - RULE-SET,nice_duck,NDEMBY
   - RULE-SET,terminus_emby,TERMINUS
   - RULE-SET,other_emby,OTHER_EMBY
@@ -125,6 +126,7 @@ rule-providers:
   nice_duck: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/niceduck.list" }
   terminus_emby: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/terminus-emby.list" }
   other_emby: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/other-emby.list" }
+  micu_emby: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/micu.list" }
   proxylite: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/ProxyLite.list" }
   ai: { <<: *class, url: "https://raw.githubusercontent.com/shihao121/openclash-config/refs/heads/main/AI.list" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs" }
